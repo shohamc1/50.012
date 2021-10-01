@@ -1,0 +1,19 @@
+version: "3"
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    command: --max_allowed_packet=256M
+    restart: on-failure
+    environment:
+      MYSQL_USER: root
+      MARIADB_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test_db
+    network_mode: host
+  fastapi:
+    container_name: fastapi
+    build: .
+    depends_on:
+      - "mariadb"
+    network_mode: host
+    restart: on-failure

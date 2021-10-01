@@ -1,0 +1,23 @@
+GET http://127.0.0.1:8000/product/ HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/product/?sortBy=rating-desc HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/product/?count=1 HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/product/?offset=1 HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/product/?count=1&offset=1 HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/product/?sortBy=rating-asc&count=3&offset=1 HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/yee/ HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/secure/ HTTP/1.1
+super-secure: yee
