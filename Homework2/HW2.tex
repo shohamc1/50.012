@@ -1,0 +1,85 @@
+\section*{1}
+\begin{enumerate}
+  \item $1*RTT =\SI{100}{ms}$
+  \item $Throughput = \frac{max-data}{RTT} = \frac{1000 * 6 * 8}{0.1} = \SI{480}{Kbps}$
+  \item $size = throughput * RTT = \frac{\num{e8}}{8} = \SI{1.25e7}{bytes}$
+\end{enumerate}
+
+\section*{2}
+\begin{equation*}
+\begin{split}
+  01101001 11110110\\
+ +11100011 00011100\\
+ =0100110100000011 \text{(1 wrap around)}\\
+ +10101010 10101010\\
+ =1111011110111101
+\end{split}
+\end{equation*}
+Taking 1's complement, the internet checksum will be $0000100001000010$.
+
+\section*{3}
+\begin{enumerate}[label=\alph*.]
+    \item 1RTT to increase to 7MSS, 2RTT to increase to 8MSS. Following this pattern, we can extrapolate to see we will need 6RTT to increase to 12MSS.
+    \item Total MSS sent = $6 + 7 + 8 + 9 + 10 + 11 + 12 = \SI{51}{MSS}$
+    
+    Average throughput = $\frac{\SI{51}{MSS}}{\SI{6}{RTT}} = \SI{8.5}{MSS/RTT}$
+\end{enumerate}
+
+\section*{4}
+\begin{enumerate}
+    \item Number of packets sent during this period,
+    \begin{equation*}
+        \begin{split}
+            \frac{W}{2}+(\frac{W}{2} + 1)+...+W=\sum_{n=0}^{W/2}(\frac{W}{2} + n)\\
+            = (\frac{W}{2} + 1)\frac{W}{2} + \frac{\frac{W}{2}*\frac{W}{2} + 1}{2}\\
+            = \frac{3}{8}W^2 + \frac{3}{4}W
+        \end{split}
+    \end{equation*}
+    $$\therefore \text{Loss rate} = \frac{1}{\frac{3}{8}W^2 + \frac{3}{4}W}$$
+    
+    \item On average, $W$ is very large, hence $\frac{3}{8}W^2 \gg \frac{3}{4}W$. Therefore, $L \thickapprox \frac{8}{3W^2} \Rightarrow W \thickapprox \sqrt{\frac{8}{3L}}$.
+    
+    Average throughput $= 0.75*\sqrt{\frac{8}{3L}} = \frac{1.22*MSS}{RTT*\sqrt{L}}$
+    
+    \item \begin{equation*}
+            \begin{split}
+                \SI{1}{Gbps} = 0.75*\sqrt{\frac{8}{3L}} = \frac{1.22*1500*8}{\sqrt{L}*0.1}\\
+                \Rightarrow \sqrt{L} = \num{14640e-9}\\
+                \therefore L = \num{2.1433e-10}
+            \end{split}
+        \end{equation*}
+        
+        For 100Gbps, 
+        \begin{equation*}
+            \begin{split}
+                \SI{100}{Gbps} = 0.75*\sqrt{\frac{8}{3L}} = \frac{1.22*1500*8}{\sqrt{L}*0.1}\\
+                \Rightarrow \sqrt{L} = \num{14640e-11}\\
+                \therefore L = \num{2.1433e-14}
+            \end{split}
+        \end{equation*}
+\end{enumerate}
+
+\section*{5}
+\begin{enumerate}
+    \item The two connections are in the "congestion avoidance" state.
+    
+    \texttt{cwnd} size of connection 1 after loss event = $\frac{80}{2} + 3 = \SI{43}{KB}$.
+    
+    \texttt{cwnd} size of connection 2 after loss event = $\frac{40}{2} + 3 = \SI{23}{KB}$.
+    
+    \item Since the connection is in "congestion avoidance" state, cwnd should increase by 1 MSS every 1 RTT. We can see that the connection increases by 10 MSS (10 KB) every 1 second.
+    
+    Therefore RTT = $\frac{1}{10} = \SI{0.1}{seconds}$.
+    
+    Average for connection 1 = $\frac{(50 + 80) * 8 * 10^3}{2*0.1} = \SI{5.2}{Mbps}$
+    
+    Average for connection 2 = $\frac{(10 + 40) * 8 * 10^3}{2*0.1} = \SI{2}{Mbps}$
+    
+    \item For both connections, $$\frac{3}{4} * \frac{60 * 8 * 10^3}{0.1} = \SI{3.6}{Mbps}$$
+    
+    \item For connection 1, \texttt{cwnd} will move between 20 KB and 40 KB.
+    $$\therefore \frac{3}{4} * \frac{40 * 8 * 10^3}{0.2} = \SI{1.2}{Mbps}$$
+    
+    For connection 2, \texttt{cwnd} will move between 40 KB and 80 KB.
+    $$\therefore \frac{3}{4} * \frac{80 * 8 * 10^3}{0.1} = \SI{4.8}{Mbps}$$
+\end{enumerate}

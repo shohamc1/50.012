@@ -1,0 +1,99 @@
+\section*{1}
+
+ISPs will peer with each other in order to connect their customers with each other and allow customers to connect to services available on other ISP's or content provider's networks. Peering also provides redundancy and decreased congestion which helps reduce downtime and increase speeds for the end user.
+
+IXPs are the infrastructure through which Internet service providers (ISPs), content delivery networks (CDNs), and other Internet networks peer to exchange Internet Protocol traffic between their networks.\cite{IXP}
+
+IXPs are usually non-profit organisations, run by universities or government agencies or run by a group of ISPs who share the cost of running the IXP.
+
+However for for-profit IXPs, they generate revenue by charging ISPs for their bandwidth as well as a reservation fee to be able to continue using their ports at the IXP. They usually do not charge by volume of traffic.\cite{IXP}
+
+\section*{2}
+\begin{enumerate}
+  \item The equation for total delay at a node is
+  
+  $$d_{node} = d_{processing} + d_{queue} + d_{transmission} + d_{propogation}$$
+  
+  and we have $$d_{processing} = d_{queue} = 0$$
+  
+  So, $$d_{node} = d_{transmission} + d_{propogation}$$
+  
+  In the first case, going from \texttt{source} to \texttt{switch}:
+  
+  $$d_{node} = \frac{12000}{\num{100e6}} + \num{12e-6} = \SI{132e-6}{seconds}$$
+  
+  And going from \texttt{switch} to \texttt{destination}:
+  
+  $$d_{node} = \frac{12000}{\num{100e6}} + \num{12e-6} = \SI{132e-6}{seconds}$$
+  
+  Hence the total delay will be \textbf{0.000264 seconds}.
+  
+  \item In this case, we will have 5 hops instead of 2, so the total delay will be $5 * 0.000132 =$ \textbf{0.00066 seconds}.
+  
+  \item Time first 300 bits spend waiting at switch: $\frac{300}{\num{e8}} = \SI{3e-6}{seconds}$
+  
+  Total delay will be $2*\num{12e-6} + \num{120e-6} +  \num{3e-6} =$ \textbf{0.000147 seconds}.
+\end{enumerate}
+
+
+\section*{3}
+TCP connections require a socket to listen for incoming connections, and every connection is assigned a different socket to communicate data. UDP does not require a socket to listen for connections and therefore requires only one socket.
+
+For \texttt{n} simultaneous connections, we would require \texttt{n + 1} sockets.
+
+\section*{4}
+\begin{enumerate}[label=\alph*.]
+    \item \texttt{http://gaia.cs.umass.edu/cs453/index.html}
+    \item The browser is running HTTP 1.1.
+    \item The browser requests for a persistent connection due to the presence of\\
+            \texttt{Connection:keep-alive}.
+    \item Information not present in HTTP message.
+    \item The browser seems to be Netscape 7.2. Knowing the browser and device information can be useful in         order to format content for the specific device and their capabilities, such as loading a mobile         optimised version for mobile devices.\cite{UAS}
+\end{enumerate}
+
+\section*{5}
+\begin{enumerate}[label=\alph*.]
+    \item Since the status code of the response is 200 (OK), we can conclude that the server was able to find the document.
+    The reply was recieved on Tue, 07 Mar 2008 12:39:45GMT.
+    \item Last-Modified: Sat, 10 Dec2005 18:27:46GMT.
+    \item 3874 bytes.
+    \item The first 5 bytes are \texttt{<!doc}. The server agreed to the persistent connection due as the response contains \texttt{Connection:Keep-Alive}.
+\end{enumerate}
+
+\section*{6}
+\begin{enumerate}
+  \item Let the amount of time be $t$. We have,
+  $$Q + x*t - r*t = 0$$
+  since at time $t$, total ingress - total egress = 0.
+  
+  $$\therefore t = \frac{Q}{r - x}$$
+  
+  \item Let the amount of time be $t$. We have,
+  $$Q + x*t - r*t = B$$
+  since at time $t$, total ingress - total egress = B.
+  
+  $$\therefore t = \frac{B - Q}{x - r}$$
+\end{enumerate}
+
+\section*{7}
+$$F = \num{6e9}, N = 100, u_s = \SI{30}{Mbps}, d_i = \SI{2}{Mbps}, u_i = \SI{1}{Mbps}$$
+\begin{enumerate}
+    \item $$D_{C-S} \geq \max(\frac{N*F}{u_s}, \frac{F}{d_{min}})$$
+          $$\frac{N*F}{u_s} = \frac{100 * \num{6e9}}{\num{30e6}} = \SI{20000}{seconds}$$
+          $$\frac{F}{d_{min}} = \frac{\num{6e9}}{\num{2e6}} = \SI{3000}{seconds}$$
+          $$\therefore D_{C-S} \geq \SI{20000}{seconds}$$
+          
+    \item $$D_{P2P} \geq \max(\frac{F}{u_s}, \frac{F}{d_{min}}, \frac{N*F}{u_s + \Sigma u_i})$$
+          $$\frac{F}{u_s} = \frac{\num{6e9}}{\num{3e7}} = \SI{200}{seconds}$$
+          $$\frac{F}{d_{min}} = \frac{\num{6e9}}{\num{2e6}} = \SI{3000}{seconds}$$
+          $$\frac{N*F}{u_s + \Sigma u_i} = \frac{100*\num{6e9}}{\num{30e6} + \num{100e6}} = \SI{4615.385}{seconds}$$
+          $$\therefore D_{P2P} \geq \SI{4615.385}{seconds}$$
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{IXP}
+\url{https://en.wikipedia.org/wiki/Internet_exchange_point}
+
+\bibitem{UAS}
+\url{https://www.w3.org/2005/MWI/BPWG/techs/User-Agent_String.html}
+\end{thebibliography}
