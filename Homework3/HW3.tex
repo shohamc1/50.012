@@ -1,0 +1,81 @@
+\section*{1}
+
+Data in each fragment = $500 - 20$ = \SI{480}{bytes}.
+
+Number of fragments = $\frac{1600}{480} = 3.\overline{3}$. Therefore, we will require 4 fragments to transfer the data.
+
+All the fragments will have the identification number set to 291.
+All the fragments other than the last fragment will have length of 500 bytes and frag flag set to 1. The last fragment will have a length of 160 bytes and frag flag set to 0. The offset values of the 4 packets are 0, 60, 120, and 180 respectively.
+
+\section*{2}
+\begin{enumerate}[label=\alph*.]
+    \item We can count the number of unique hosts using the identification numbers. Since the ID numbers are generated sequentially from a random number, the chances of a collision of the initial number are very low. Hence, we can count the number of "strands" of ID numbers to find out the number of hosts.
+    
+    e.g. If host 1 starts from ID 10 and host 2 starts for ID 500, packets from Host 1 will have IDs 10, 11, 12, ... and Host 2 will have IDs 500, 501, 502, .... So we have two discrete strands of IDs here meaning there are two unique hosts.
+    
+    \item If the ID numbers are random then the above method will not work as it will not be possible to form "strands" of ID numbers.
+\end{enumerate}
+
+\section*{3}
+The router will use DHCP to assign internal IP address to all the 5 computers. Every computer will go through the \texttt{DISCOVER}, \texttt{OFFER}, \texttt{REQUEST}, \texttt{ACK} procedure with the router and establish an IP for the network.
+
+Yes, the router will have to use a NAT since we only receive one IP address from the ISP and we have multiple devices connecting to the router simultaneously.
+
+\section*{4}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Step} & \textbf{N'} & \textbf{D(u),p(u)} & \textbf{D(v),p(v)} & \textbf{D(w),p(w)} & \textbf{D(y),p(y)} & \textbf{D(z),p(z)} \\ 
+        \hline
+        0 & x & 1,x & 6,x & 5,x & 4,x & $\infty$ \\  
+        \hline
+        1 & xu & 1,x & 5,u & 5,x & 4,x & 2,u \\  
+        \hline
+        2 & xuz & 1,x & 5,u & 5,x & 3,z & 2,u \\  
+        \hline
+        3 & xuzy & 1,x & 5,u & 4,y & 3,z & 2,u \\  
+        \hline
+        4 & xuzyw & 1,x & 5,u & 4,y & 3,z & 2,u \\  
+        \hline
+        5 & xuzywv & 1,x & 5,u & 4,y & 3,z & 2,u \\  
+        \hline
+    \end{tabular}
+\end{center}
+
+\section*{5}
+\begin{enumerate}[label=\alph*.]
+    \item ~
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{|l|l|}
+            \hline
+                \multirow{2}{*}{Router z} & Informs w, Dz(x)=$\infty$   \\ \cline{2-2} 
+                                          & Informs y, Dz(x)=6          \\ \hline
+                \multirow{2}{*}{Router w} & Informs y, Dw(x)=$\infty$   \\ \cline{2-2} 
+                                          & Informs z, Dw(x)=5          \\ \hline
+                \multirow{2}{*}{Router y} & Informs w, Dy(x)=4          \\ \cline{2-2} 
+                                          & Informs z, Dy(x)=4          \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \item Yes there will be a count-to-infinity problem.
+    
+     \begin{table}[h]
+        \hskip-2.0cm
+        \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \textbf{time} & \textbf{t0} & \textbf{Round 1} & \textbf{Round 2} & \textbf{Round 3} & \textbf{Round 4} \\
+        \hline
+        Z & & & No Change & \makecell{Update w Dz(x)=$\infty$\\Update y Dz(x)=$11$} & \\
+        \hline
+        W & & & \makecell{Update y, Dw(x)=$\infty$\\Update z, Dw(x)=$10$} & & No Change\\
+        \hline
+        Y & Dy(x)=9 & \makecell{Update w, Dy(x)=9\\Update z, Dy(x)=$\infty$} & & No Change & \makecell{Update w, Dy(x)=14\\Update z, Dy(x)=$\infty$}\\
+        \hline
+        \end{tabular}
+    \end{table}
+    
+    We can see that Round 1 and 4 are similar where \texttt{Y}'s distance to \texttt{X} increases. This would increase every 4th round leading to a count-to-infinity problem.
+    
+\end{enumerate}
