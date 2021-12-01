@@ -1,0 +1,50 @@
+\section*{1}
+\begin{enumerate}[label=\alph*.]
+    \item eBGP.
+    \item iBGP.
+    \item eBGP.
+    \item iBGP.
+    \item Since OSPF is being used, l1 will be stored since it has a lower cost (9 vs 10) than l2.
+    \item Since the new cost via l2 is 5, which is lower than the cost via l1, l2 will replace l1.
+    \item l1 will be used since it has a shorter AS-PATH length.
+\end{enumerate}
+
+\section*{2}
+\begin{enumerate}[label=\alph*.]
+    \item Since E and F are in the same local network, routing through R1 is not required. Instead the packets will reach F through S3.
+    
+    Source IP: E's IP address
+    
+    Destination IP: F's IP address
+    
+    Source MAC: E's MAC address
+    
+    Destination MAC: F's MAC address
+    
+    \item Since B is not in E's local network, it will not do an ARP query. 
+    
+    Source IP: E's IP address
+    
+    Destination IP: B's IP address
+    
+    Source MAC: E's MAC address
+    
+    Destination MAC: MAC address of R1 facing S3
+    
+    \item Once S1 recieves the ARP request message, it will add A's IP and MAC address to its forwarding table and forwards the packet to S2.
+    
+    R1 will recieve the message, however it will not forward the message.
+    
+    B does not need to ask for A's MAC address since the information is included in the ARP query message.
+    
+    Since S0 already knows A's MAC address (from forwarding the query packet), S0 can forward the packet from B directly to A without involving S1.
+\end{enumerate}
+
+\section*{3}
+Dividend = D || x = \texttt{10011001000}\\
+Divisor = G = \texttt{1001}\\
+
+After dividing, we get\\
+Result = \texttt{10001000}\\
+Remainder = \texttt{0}\\
+CRC bits = \texttt{000}\\
